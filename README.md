@@ -10,6 +10,12 @@ Modern projects often have good production CI but bad local onboarding. DevDocto
 
 ## Install
 
+From PyPI:
+
+```bash
+pipx install devdoctor-cli
+```
+
 From GitHub:
 
 ```bash
@@ -107,6 +113,7 @@ Near-term focus:
 - secret scanning for `.env`, token-like values and private key blocks
 - `devdoctor list-checks` to show enabled detectors
 - `--min-severity` and `--fail-on` controls for CI-friendly scans
+- PyPI distribution name is `devdoctor-cli`; the installed command remains `devdoctor`
 
 See [CHANGELOG.md](CHANGELOG.md) for release history.
 

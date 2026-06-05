@@ -31,7 +31,7 @@ DevDoctor targets that gap directly. It treats README setup instructions and loc
 ## Current signals to mention
 
 - Public GitHub repository: https://github.com/xxx333xxx/devdoctor
-- Version 0.2.0 includes multiple detectors and CI-friendly CLI controls.
+- Version 0.2.1 includes multiple detectors, CI-friendly CLI controls, and PyPI-ready packaging as `devdoctor-cli`.
 - Reddit feedback route started in r/devops weekly self-promotion thread.
 - Roadmap for 0.3.0 focuses on README command drift, environment drift, and CI integration.
 
