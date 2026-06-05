@@ -8,6 +8,22 @@ from pathlib import Path
 from typing import Iterable
 
 
+DEFAULT_SKIP_DIRS = {
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    ".tox",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+    "node_modules",
+    "vendor",
+}
+
+
 def read_text(path: Path) -> str:
     try:
         return path.read_text(encoding="utf-8")
@@ -19,6 +35,20 @@ def read_text(path: Path) -> str:
 
 def has_file(root: Path, names: Iterable[str]) -> bool:
     return any((root / n).exists() for n in names)
+
+
+def iter_repo_files(root: Path, *, skip_dirs: set[str] | None = None, max_bytes: int = 250_000):
+    ignored = skip_dirs or DEFAULT_SKIP_DIRS
+    for current, dirs, files in os.walk(root):
+        dirs[:] = [d for d in dirs if d not in ignored]
+        base = Path(current)
+        for name in files:
+            path = base / name
+            try:
+                if path.stat().st_size <= max_bytes:
+                    yield path
+            except OSError:
+                continue
 
 
 def which(cmd: str) -> str | None:

@@ -9,8 +9,18 @@ from devdoctor.detectors.python import PythonDetector
 from devdoctor.detectors.docker import DockerDetector
 from devdoctor.detectors.readme import ReadmeDetector
 from devdoctor.detectors.github_actions import GitHubActionsDetector
+from devdoctor.detectors.secrets import SecretsDetector
 
-DETECTORS = [GitDetector(), EnvDetector(), NodeDetector(), PythonDetector(), DockerDetector(), ReadmeDetector(), GitHubActionsDetector()]
+DETECTORS = [
+    GitDetector(),
+    EnvDetector(),
+    SecretsDetector(),
+    NodeDetector(),
+    PythonDetector(),
+    DockerDetector(),
+    ReadmeDetector(),
+    GitHubActionsDetector(),
+]
 
 
 def scan(root: str | Path) -> list[Finding]:

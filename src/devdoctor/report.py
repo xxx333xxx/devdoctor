@@ -13,6 +13,8 @@ def render_text(findings: list[Finding]) -> str:
     for f in findings:
         lines.append(f"{icon[f.severity]} [{f.detector}] {f.title}")
         lines.append(f"   {f.message}")
+        if f.evidence:
+            lines.append(f"   Evidence: {', '.join(f.evidence[:5])}")
         if f.fix:
             lines.append(f"   Fix: {f.fix}")
         lines.append("")

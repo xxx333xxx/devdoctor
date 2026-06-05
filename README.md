@@ -27,6 +27,8 @@ pip install -e ".[dev]"
 ```bash
 devdoctor scan .
 devdoctor scan . --json
+devdoctor scan . --min-severity warn --fail-on warn
+devdoctor list-checks
 devdoctor verify-readme .
 devdoctor verify-readme . --run
 ```
@@ -34,6 +36,7 @@ devdoctor verify-readme . --run
 ## What it checks
 
 - missing `.env` when `.env.example` exists
+- committed secret files or token-like values
 - multiple Node lockfiles
 - missing Node/Python executables
 - duplicate Docker Compose host ports
@@ -53,6 +56,12 @@ DevDoctor is not a replacement for Dev Containers, Docker, Nix, mise, asdf, or C
 - README command sandbox using containers
 - first-class checks for Next.js, Django, FastAPI, Rails and Go
 - `devdoctor doctor` automatic safe fixes
+
+## What's new in 0.2.0
+
+- secret scanning for `.env`, token-like values and private key blocks
+- `devdoctor list-checks` to show enabled detectors
+- `--min-severity` and `--fail-on` controls for CI-friendly scans
 
 ## Test
 
