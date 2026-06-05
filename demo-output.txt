@@ -1,0 +1,5 @@
+DevDoctor found 1 issue(s): 0 error, 1 warn, 0 info
+
+WARN [git] Missing .gitignore
+   Common generated files may be committed accidentally.
+   Fix: Add a .gitignore for your stack.
