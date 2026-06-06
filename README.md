@@ -63,6 +63,7 @@ See [docs/github-actions.md](docs/github-actions.md) for a full workflow.
 - missing `.env` when `.env.example` exists
 - committed secret files or token-like values
 - multiple Node lockfiles
+- README package script drift, such as `npm start` missing from `package.json`
 - missing Node/Python executables
 - duplicate Docker Compose host ports
 - README without copy-pasteable commands
@@ -108,12 +109,11 @@ Near-term focus:
 - SARIF output for GitHub code scanning
 - README command sandbox using containers
 
-## What's new in 0.2.0
+## What's new in 0.3.0
 
-- secret scanning for `.env`, token-like values and private key blocks
-- `devdoctor list-checks` to show enabled detectors
-- `--min-severity` and `--fail-on` controls for CI-friendly scans
-- PyPI distribution name is `devdoctor-cli`; the installed command remains `devdoctor`
+- README/package script drift detection for Node projects
+- detects stale setup commands like `npm start` when only `npm run dev` exists
+- keeps the PyPI distribution name `devdoctor-cli`; the installed command remains `devdoctor`
 
 See [CHANGELOG.md](CHANGELOG.md) for release history.
 

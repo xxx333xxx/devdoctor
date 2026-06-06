@@ -20,6 +20,26 @@ def test_detects_multiple_node_locks(tmp_path: Path):
     assert any("Multiple package manager" in f.title for f in findings)
 
 
+def test_detects_readme_package_script_drift(tmp_path: Path):
+    (tmp_path / "package.json").write_text('{"scripts":{"dev":"vite"}}', encoding="utf-8")
+    (tmp_path / "README.md").write_text("# X\n```bash\nnpm install\nnpm start\n```", encoding="utf-8")
+    findings = scan(tmp_path)
+    assert any(
+        f.detector == "readme"
+        and f.severity.value == "error"
+        and f.title == "README setup command does not exist"
+        and "`npm start`" in f.message
+        for f in findings
+    )
+
+
+def test_readme_accepts_existing_package_script(tmp_path: Path):
+    (tmp_path / "package.json").write_text('{"scripts":{"dev":"vite"}}', encoding="utf-8")
+    (tmp_path / "README.md").write_text("# X\n```bash\nnpm install\nnpm run dev\n```", encoding="utf-8")
+    findings = scan(tmp_path)
+    assert not any(f.title == "README setup command does not exist" for f in findings)
+
+
 def test_verify_readme_extracts_commands(tmp_path: Path):
     (tmp_path / "README.md").write_text("```bash\n$ pip install -e .\npytest\n```", encoding="utf-8")
     results = verify_readme(tmp_path)

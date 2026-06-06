@@ -2,6 +2,14 @@
 
 All notable changes to DevDoctor are documented here.
 
+## 0.3.0 - 2026-06-06
+
+### Added
+
+- README/package script drift detection for Node projects.
+- DevDoctor now reports an error when README setup commands reference package scripts that do not exist, such as `npm start` when `package.json` only defines `npm run dev`.
+- Tests covering missing and valid README package script references.
+
 ## 0.2.1 - 2026-06-05
 
 ### Changed
