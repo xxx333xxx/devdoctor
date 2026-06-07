@@ -47,6 +47,12 @@ devdoctor verify-readme .
 devdoctor verify-readme . --run
 ```
 
+Try the intentionally broken demo fixture:
+
+```bash
+devdoctor scan examples/broken-node
+```
+
 ## GitHub Actions
 
 DevDoctor can run on pull requests when setup-related files change:
@@ -76,19 +82,20 @@ See [docs/github-actions.md](docs/github-actions.md) for a full workflow.
 DevDoctor is meant to catch the small setup failures that make a repo feel abandoned before a contributor reaches the real code.
 
 ```text
-DevDoctor found 3 issue(s): 1 error, 2 warn, 0 info
-
-ERROR [readme] README setup command does not exist
-   README uses `npm start`, but package.json only defines `npm run dev`.
-   Fix: Update the README command or add the missing package script.
+DevDoctor found 9 issue(s): 1 error, 4 warn, 4 info
 
 WARN [env] Missing .env
-   .env.example exists, but .env is missing.
-   Fix: cp .env.example .env
+   Found .env.example, but no .env file.
+   Fix: Copy `.env.example` to `.env` and fill required values.
 
-WARN [docker] Duplicate Docker Compose host port
-   Port 5432 is used by more than one service.
-   Fix: Change one host port or stop the conflicting service.
+WARN [node] Multiple package manager lockfiles
+   package-lock.json, yarn.lock
+   Fix: Keep exactly one lockfile to avoid dependency drift.
+
+ERROR [readme] README setup command does not exist
+   README uses `npm start`, but package.json does not define script `start`. Available: `npm run dev`.
+   Evidence: npm start, package.json scripts: dev
+   Fix: Update the README command or add a `start` script to package.json.
 ```
 
 The goal is simple: if a README claims a repo can be started locally, that path should be cheap to check.

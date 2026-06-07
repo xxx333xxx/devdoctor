@@ -4,6 +4,9 @@ from devdoctor.readme_verify import verify_readme
 from devdoctor.cli import main
 
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
+
 def test_detects_missing_env(tmp_path: Path):
     (tmp_path / ".env.example").write_text("DATABASE_URL=\n", encoding="utf-8")
     (tmp_path / "README.md").write_text("# X\n```bash\npytest\n```", encoding="utf-8")
@@ -64,3 +67,10 @@ def test_list_checks(capsys):
     assert main(["list-checks"]) == 0
     out = capsys.readouterr().out
     assert "secrets" in out
+
+
+def test_broken_node_example_demonstrates_readme_drift():
+    findings = scan(REPO_ROOT / "examples" / "broken-node")
+    assert any(f.title == "README setup command does not exist" for f in findings)
+    assert any(f.title == "Missing .env" for f in findings)
+    assert any("Multiple package manager" in f.title for f in findings)

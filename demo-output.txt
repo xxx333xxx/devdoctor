@@ -1,5 +1,38 @@
-DevDoctor found 1 issue(s): 0 error, 1 warn, 0 info
+DevDoctor found 9 issue(s): 1 error, 4 warn, 4 info
+
+INFO [git] Not a Git repository
+   No .git directory was found.
+   Fix: Run `git init` if this is meant to be a repo.
 
 WARN [git] Missing .gitignore
    Common generated files may be committed accidentally.
    Fix: Add a .gitignore for your stack.
+
+WARN [env] Missing .env
+   Found .env.example, but no .env file.
+   Fix: Copy `.env.example` to `.env` and fill required values.
+
+WARN [node] Multiple package manager lockfiles
+   package-lock.json, yarn.lock
+   Fix: Keep exactly one lockfile to avoid dependency drift.
+
+WARN [node] No test script
+   No `test` script was found.
+   Fix: Add `npm test` or document why tests are unavailable.
+
+INFO [readme] README missing usage section
+   Could not find `usage` in README.
+   Fix: Add a `usage` section.
+
+INFO [readme] README missing test section
+   Could not find `test` in README.
+   Fix: Add a `test` section.
+
+ERROR [readme] README setup command does not exist
+   README uses `npm start`, but package.json does not define script `start`. Available: `npm run dev`.
+   Evidence: npm start, package.json scripts: dev
+   Fix: Update the README command or add a `start` script to package.json.
+
+INFO [github-actions] No GitHub Actions workflow
+   No .github/workflows directory was found.
+   Fix: Add CI to run tests and `devdoctor scan` on pull requests.
